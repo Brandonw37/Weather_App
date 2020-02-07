@@ -13,14 +13,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-//connecets 
-//const nameSchema = new mongoose.Schema({
-//    City: String,
-//});
-//const User = mongoose.model("User",nameSchema);
-
 //app.use('/',function(req,res){
-//    res.send('hello')
+//    res.send('Weather Application')
 //});
 
 app.get('/WeatherApp',function(req,res){
@@ -32,8 +26,6 @@ app.get('/WeatherApp',function(req,res){
 });
 
 const API = process.env.apiKey;
-//const city = "Reno";
-//const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${API}`
 
 app.post("/WeatherApp",function(req,res){
     let city = (req.body.City)
@@ -42,8 +34,8 @@ app.post("/WeatherApp",function(req,res){
 
     request(url, function(err,response,body) {
         if(err){
-            res.send('error:',err);
-        }
+            res.sendFile(__dirname+'/HTML/Front.html');
+        }   
         else {
             let weather = JSON.parse(body)
             let message = `It's ${weather.main.temp} degrees in ${weather.name}`;
